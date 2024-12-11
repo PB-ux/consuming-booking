@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.5</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.bratkov</groupId>
+    <artifactId>consuming-booking</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>consuming-booking</name>
+    <description>consuming-booking</description>
+    <url/>
+    <licenses>
+        <license/>
+    </licenses>
+    <developers>
+        <developer/>
+    </developers>
+    <scm>
+        <connection/>
+        <developerConnection/>
+        <tag/>
+        <url/>
+    </scm>
+    <properties>
+        <java.version>21</java.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web-services</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <!-- tag::wsdl[] -->
+            <plugin>
+                <groupId>com.sun.xml.ws</groupId>
+                <artifactId>jaxws-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>wsdl-bookings</id>
+                        <goals>
+                            <goal>wsimport</goal>
+                        </goals>
+                        <configuration>
+                            <packageName>com.bratkov.consumingbooking.wsdl</packageName>
+                            <wsdlUrls>
+                                <wsdlUrl>http://localhost:8080/ws/bookings.wsdl</wsdlUrl>
+                            </wsdlUrls>
+                            <sourceDestDir>${sourcesDir}</sourceDestDir>
+                            <destDir>${classesDir}</destDir>
+                            <extension>true</extension>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>wsdl-flights</id>
+                        <goals>
+                            <goal>wsimport</goal>
+                        </goals>
+                        <configuration>
+                            <packageName>com.bratkov.consumingflight.wsdl</packageName>
+                            <wsdlUrls>
+                                <wsdlUrl>http://localhost:8081/ws/flights.wsdl</wsdlUrl>
+                            </wsdlUrls>
+                            <sourceDestDir>${sourcesDir}</sourceDestDir>
+                            <destDir>${classesDir}</destDir>
+                            <extension>true</extension>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>wsdl-payments</id>
+                        <goals>
+                            <goal>wsimport</goal>
+                        </goals>
+                        <configuration>
+                            <packageName>com.bratkov.consumingpayment.wsdl</packageName>
+                            <wsdlUrls>
+                                <wsdlUrl>http://localhost:8083/ws/payments.wsdl</wsdlUrl>
+                            </wsdlUrls>
+                            <sourceDestDir>${sourcesDir}</sourceDestDir>
+                            <destDir>${classesDir}</destDir>
+                            <extension>true</extension>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- end::wsdl[] -->
+        </plugins>
+    </build>
+</project>
